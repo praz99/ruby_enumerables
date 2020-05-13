@@ -16,8 +16,14 @@ module Enumerable
     end
     self
   end
-end
 
-a = [1, 2, 3, 4, 5]
-a.my_each { |k| puts k + 2 }
-a.my_each_with_index { |j, k| puts "#{j + 10} is at position #{k + 1}" }
+  def my_select
+    return enum_for(:my_select) unless block_given?
+
+    arr = []
+    my_each do |i|
+      arr << i if yield i
+    end
+    arr
+  end
+end
