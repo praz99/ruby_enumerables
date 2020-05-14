@@ -78,9 +78,23 @@ module Enumerable
     else
       my_each { |i| check = false if i }
     end
-    puts check
+    check
+  end
+
+  def my_count(arg = nil)
+    return length unless block_given? || arg
+
+    total = 0
+    if arg
+      my_each { |i| total += 1 if i == arg }
+    elsif block_given?
+      my_each { |i| total += 1 if yield i }
+    end
+    total
   end
 end
+
+# TEST CASES
 
 # a = [2, 3, 4, 5, 6]
 # a.my_each { |k| puts k + 2 }
@@ -111,3 +125,8 @@ end
 # [nil].my_none? #=> true
 # [nil, false].my_none? #=> true
 # [nil, false, true].my_none? #=> false
+
+ary = [1, 2, 4, 2]
+ary.my_count #=> 4
+ary.my_count(2) #=> 2
+ary.my_count { |x| (x % 2).zero? } #=> 3
