@@ -62,6 +62,22 @@ module Enumerable
     else
       my_each { |i| check = true if i }
     end
+    check
+  end
+
+  def my_none?(arg = nil)
+    check = true
+    if arg.class == Class
+      my_each { |i| check = false if arg === i }
+    elsif arg.class == Regexp
+      my_each { |i| check = false if arg.match? i }
+    elsif block_given?
+      my_each { |i| check = false if yield i }
+    elsif arg
+      my_each { |i| check = false if arg == i }
+    else
+      my_each { |i| check = false if i }
+    end
     puts check
   end
 end
@@ -72,9 +88,26 @@ end
 # hash.my_each do |key, value|
 # puts "#{key} costs #{value} per kilogram."
 # end
+
+# %w[ant bear cat].my_all? { |word| word.length >= 3 } #=> true
+# %w[ant bear cat].my_all? { |word| word.length >= 4 } #=> false
+# %w[ant bear cat].my_all?(/t/) #=> false
+# [1, 2i, 3.14].my_all?(Numeric) #=> true
+# [nil, true, 99].my_all? #=> false
+# [].my_all? #=> true
+
 # %w[ant bear cat].my_any? { |word| word.length >= 3 } #=> true
-# %w[ant bear cat].my_any? { |word| word.length >= 4 } #=> false
+# %w[ant bear cat].my_any? { |word| word.length >= 4 } #=> true
 # %w[ant bear cat].my_any?(/d/) #=> false
-# [1, 2i, 3.14].my_any?(Numeric) #=> true
-# [nil, true, 99].my_any? #=> false
-# [].my_any? #=> true
+# [nil, true, 99].my_any?(Integer) #=> true
+# [nil, true, 99].my_any? #=> true
+# [].my_any? #=> false
+
+# %w[ant bear cat].my_none? { |word| word.length == 5 } #=> true
+# %w[ant bear cat].my_none? { |word| word.length >= 4 } #=> false
+# %w[ant bear cat].my_none?(/d/) #=> true
+# [1, 3.14, 42].my_none?(Float) #=> false
+# [].my_none? #=> true
+# [nil].my_none? #=> true
+# [nil, false].my_none? #=> true
+# [nil, false, true].my_none? #=> false
