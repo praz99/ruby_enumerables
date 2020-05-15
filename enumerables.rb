@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ModuleLength
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
@@ -34,6 +35,7 @@ module Enumerable
     result
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Style/CaseEquality
   def my_all?(arg = nil)
     check = true
     if arg.class == Class
@@ -117,6 +119,7 @@ module Enumerable
     end
     init
   end
+  # rubocop:enable Metrics/ModuleLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Style/CaseEquality
 end
 
 # ......END OF ENUMERABLES......

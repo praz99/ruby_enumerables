@@ -50,13 +50,3 @@ Style/HashTransformKeys:
 Style/HashTransformValues:
   Enabled: false
 
-Style/CaseEquality:
-  Enabled: false
-Metrics/ModuleLength:
-  Enabled: false
-Metrics/CyclomaticComplexity:
-  Enabled: false
-Metrics/PerceivedComplexity:
-  Enabled: false
-Metrics/PerceivedComplexity:
-  Enabled: false
