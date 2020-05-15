@@ -101,76 +101,26 @@ module Enumerable
     arr = is_a?(Array) ? self : to_a
     arr.my_each { |i| result << a_proc.call(i) }
     result
-  end  
+  end
+
+  def my_inject(*args)
+    init = args[0] if args[0].is_a?(Integer)
+    if args[0].is_a?(Symbol) || args[0].is_a?(String)
+      oper = args[0]
+    elsif args[0].is_a?(Integer)
+      oper = args[1]
+    end
+    if oper
+      to_a.my_each { |x| init = init ? init.send(oper, x) : x }
+    else
+      to_a.my_each { |x| init = init ? yield(init, x) : x }
+    end
+    init
+  end
 end
 
-# TEST CASES
+# ......END OF ENUMERABLES......
 
-# ...my_each...
-# a = [2, 3, 4, 5, 6]
-# a.my_each { |k| puts k + 2 }
-# hash = {coconut: 200, banana: 150, apple: 170}
-# hash.my_each do |key, value|
-# puts "#{key} costs #{value} per kilogram."
-# end
-
-# ...my_each_with_index...
-# hash = Hash.new
-# %w(cat dog wombat).my_each_with_index do |item, index|
-# hash[item] = index
-# end
-# puts hash
-
-# a = %w[apple, ball, cat, dog, elephant]
-# a.my_each_with_index do |item, index|
-# puts "#{item} is at #{index + 1}."
-# end
-
-# ...my_select...
-# (1..10).my_select { |i| (i % 3).zero? } #=> [3, 6, 9]
-# [1, 2, 3, 4, 5].my_select { |num| num.even? } #=> [2, 4]
-# [:foo, :bar].my_select { |x| x == :foo } #=> [:foo]
-
-# ...my_all?...
-# %w[ant bear cat].my_all? { |word| word.length >= 3 } #=> true
-# %w[ant bear cat].my_all? { |word| word.length >= 4 } #=> false
-# %w[ant bear cat].my_all?(/t/) #=> false
-# [1, 2i, 3.14].my_all?(Numeric) #=> true
-# [nil, true, 99].my_all? #=> false
-# [].my_all? #=> true
-
-# ...my_any?...
-# %w[ant bear cat].my_any? { |word| word.length >= 3 } #=> true
-# %w[ant bear cat].my_any? { |word| word.length >= 4 } #=> true
-# %w[ant bear cat].my_any?(/d/) #=> false
-# [nil, true, 99].my_any?(Integer) #=> true
-# [nil, true, 99].my_any? #=> true
-# [].my_any? #=> false
-
-# ...my_none?...
-# %w[ant bear cat].my_none? { |word| word.length == 5 } #=> true
-# %w[ant bear cat].my_none? { |word| word.length >= 4 } #=> false
-# %w[ant bear cat].my_none?(/d/) #=> true
-# [1, 3.14, 42].my_none?(Float) #=> false
-# [].my_none? #=> true
-# [nil].my_none? #=> true
-# [nil, false].my_none? #=> true
-# [nil, false, true].my_none? #=> false
-
-# ...my_count...
-# ary = [1, 2, 4, 2]
-# ary.my_count #=> 4
-# ary.my_count(2) #=> 2
-# ary.my_count { |x| (x % 2).zero? } #=> 3
-
-# ...my_map...
-# a = [2, 3, 4, 5, 6]
-# a.my_map { |l| l * 2 } #=> [2, 9, 16, 25, 36]
-# (1..4).my_map { |i| i * i } #=> [1, 4, 9, 16]
-# (1..4).my_map { "cat" } #=> ["cat", "cat", "cat", "cat"]
-# %w[a b c].my_map(&:upcase) #=> ["A", "B", "C"]
-# %w[a b c].my_map(&:class) #=> [String, String, String]
-# [2, 4, 7, 11].my_map # <Enumerator: [2, 4, 7, 11]:my_map
-# my_proc = proc { |num| num > 10 }
-# puts [18, 22, 5, 6].my_map(my_proc) { |num| num < 10 } # true true false false
-
+def multiply_els(array)
+  array.my_inject { |product, n| product * n }
+end
