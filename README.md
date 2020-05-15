@@ -1,5 +1,6 @@
 # Ruby Enumerables
 > The purpose of this project is to recreate or replicate some of the main and most used methods from the Enumerable module in ruby. All of the methods replicated have "my_".
+
 ## Methods Built
 * #each
 * #each_with_index
@@ -10,9 +11,11 @@
 * #count
 * #map
 * #inject
+
 ## Built With
 * Ruby 2.6.6
 * VS Code
+
 ## Contributing
 Any contributions are **welcome**.
 1. Fork the Project
@@ -39,5 +42,3 @@ Give a ⭐️ if you like this project!
 ## Acknowledgements
 * The Odin Project
 * [Microverse](https://www.microverse.org/)
-
-https://github.com/praz99/ruby_enumerable
