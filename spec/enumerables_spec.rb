@@ -5,8 +5,6 @@ describe Enumerable do
   let(:my_arr_str) { %w[ant bear cat] }
   let(:my_arr_nil) { [nil, true, 99] }
   let(:my_arr_numeric) { [1, 2i, 3.14] }
-  # let(:my_hash) {{first: 1, second: 2, third: 3}}
-  # let(:my_range) {(0..5)}
   let(:got_arr) { [] }
 
   describe '#my_each' do
