@@ -90,7 +90,7 @@ describe Enumerable do
     end
 
     it 'returns the number of items executed in block given that returns true' do
-      expect(my_arr.my_count { |x| x % 2.odd? }).to eql 2
+      expect(my_arr.my_count(&:odd?)).to eql 2
     end
   end
 
