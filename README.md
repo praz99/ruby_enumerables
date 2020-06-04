@@ -24,6 +24,12 @@ Any contributions are **welcome**.
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+### Testing
+To test the project
+1. Navigate to the directory where the project is located.
+2. Open terminal in this directory.
+3. Enter command `rspec`.
+
 > Also feel free to check the [issues](https://github.com/praz99/ruby-enumerables/issues) page.
 
 ## Author
