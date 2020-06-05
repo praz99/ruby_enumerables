@@ -105,7 +105,7 @@ describe Enumerable do
   end
 
   describe '#inject' do
-    describe 'if accumulator is defined' do
+    context 'if accumulator is defined' do
       it 'returns the result of accumulator and items by using given symbol' do
         expect((5..10).reduce(2, :*)).to eql 302_400
       end
@@ -115,7 +115,7 @@ describe Enumerable do
       end
     end
 
-    describe "if accumulator isn't defined" do
+    context "if accumulator isn't defined" do
       it 'returns the result of items by using given symbol' do
         expect((5..10).reduce(:*)).to eql 151_200
       end
